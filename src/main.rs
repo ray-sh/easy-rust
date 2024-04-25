@@ -1,34 +1,37 @@
 // mod cmd;
 mod slice_window;
+// 567
+// 给你两个字符串 s1 和 s2 ，写一个函数来判断 s2 是否包含 s1 的排列。如果是，返回 true ；否则，返回 false 。
 
-fn min_window<'a>(source: &'a str, target: &str) -> &'a str {
+// 换句话说，s1 的排列之一是 s2 的 子串 。
+
+// 示例 1：
+
+// 输入：s1 = "ab" s2 = "eidbaooo"
+// 输出：true
+// 解释：s2 包含 s1 的排列之一 ("ba").
+// 示例 2：
+
+// 输入：s1= "ab" s2 = "eidboaoo"
+// 输出：false
+// 提示：
+
+// 1 <= s1.length, s2.length <= 104
+// s1 和 s2 仅包含小写字母
+
+fn has_sub(s1: &str, s2: &str) -> bool {
     let mut left = 0;
-    let mut min_str = "";
-    for right in 0..source.len() {
-        let left_char = source.chars().nth(left).unwrap();
-        println!(
-            "left chart {}, left {}, right {}, window {}",
-            left_char,
-            left,
-            right,
-            &source[left..=right]
-        );
-        let window = &source[left..=right];
-        if target.chars().all(|c| window.contains(c)) {
-            if min_str.is_empty() || min_str.len() > (right - left + 1) {
-                min_str = &source[left..=right];
-                left = right + 1;
-            }
+    let w_size = s1.len();
+    while left < s2.len() - w_size {
+        if s1.chars().all(|c| s2[left..left + w_size].contains(c))
+        {
+            return true;
         }
-        if target.find(left_char) == None {
-            left = left + 1;
-        }
+        left = left + 1;
     }
-    min_str
+    false
 }
 
 fn main() {
-    // println!("{}", longest_substrings("abcabcbb"));
-    // println!("{}", mycontains("asedfcb", "abc"));
-    println!("{}", min_window("ADOBECODEBANC", "ABC"));
+    println!("{}", has_sub("ab", "eidbaooo"));
 }
