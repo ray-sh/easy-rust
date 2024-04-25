@@ -1,9 +1,6 @@
 // mod cmd;
 mod slice_window;
 
-fn mycontains(s: &str, t: &str) -> bool {
-    t.chars().all(|c| s.contains(c))
-}
 fn min_window<'a>(source: &'a str, target: &str) -> &'a str {
     let mut left = 0;
     let mut min_str = "";
@@ -16,12 +13,11 @@ fn min_window<'a>(source: &'a str, target: &str) -> &'a str {
             right,
             &source[left..=right]
         );
-        if mycontains(&source[left..=right], target) {
-            // println!("find string {}", &source[left..right]);
+        let window = &source[left..=right];
+        if target.chars().all(|c| window.contains(c)) {
             if min_str.is_empty() || min_str.len() > (right - left + 1) {
                 min_str = &source[left..=right];
                 left = right + 1;
-                // println!("{}", left);
             }
         }
         if target.find(left_char) == None {
