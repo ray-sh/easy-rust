@@ -1,7 +1,26 @@
 #[cfg(test)]
 mod tests {
     use std::collections::LinkedList;
+    // 23 给你一个链表数组，每个链表都已经按升序排列。
 
+    // 请你将所有链表合并到一个升序链表中，返回合并后的链表。
+    fn merge_lists(mut lists: Vec<LinkedList<i32>>) -> LinkedList<i32> {
+        lists.iter_mut().fold(LinkedList::new(), |mut acc, list| {
+            merge_two_lists(&mut acc, list)
+        })
+        
+    }
+    #[test]
+    fn test_23() {
+        assert_eq!(
+            merge_lists(vec![
+                LinkedList::from([1, 4, 5]),
+                LinkedList::from([1, 3, 4]),
+                LinkedList::from([2, 6])
+            ]),
+            LinkedList::from([1, 1, 2, 3, 4, 4, 5, 6])
+        )
+    }
     // 21. 合并两个有序链表
     // 输入：l1 = [1,2,4], l2 = [1,3,4]
     fn merge_two_lists(l1: &mut LinkedList<i32>, l2: &mut LinkedList<i32>) -> LinkedList<i32> {
