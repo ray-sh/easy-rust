@@ -1,6 +1,24 @@
 #[cfg(test)]
 mod tests {
     use std::collections::LinkedList;
+    // 344 题「反转字符串」就是类似的需求，让你反转一个 char[] 类型的字符数组
+    fn reverse_str(s: &str) -> String {
+        let mut chars: Vec<char> = s.chars().collect();
+        let mut left = 0;
+        let mut right = chars.len() - 1;
+        while left < right {
+            let tmp = chars[left];
+            chars[left] = chars[right];
+            chars[right] = tmp;
+            left += 1;
+            right -= 1
+        }
+        chars.iter().collect()
+    }
+    #[test]
+    fn test_344() {
+        assert_eq!(reverse_str("abc"), "cab");
+    }
     //167 给你一个下标从 1 开始的整数数组 numbers ，该数组已按 非递减顺序排列  ，请你从数组中找出满足相加之和等于目标数 target 的两个数。如果设这两个数分别是 numbers[index1] 和 numbers[index2] ，则 1 <= index1 < index2 <= numbers.length 。
 
     // 以长度为 2 的整数数组 [index1, index2] 的形式返回这两个整数的下标 index1 和 index2。
