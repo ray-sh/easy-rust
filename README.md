@@ -27,3 +27,7 @@ Safety and Error Handling: Rust's strong emphasis on safety and error handling e
 - [iter chain make code easy to read](https://docs.google.com/document/d/15Rd0dcggZcwJlCYsRg0BZhTlD8R5BCefqwn0exw7If4/edit?usp=sharing)
 
 - iter chain is lazy by default, Each adapter in the chain (filter, map in the previous example) creates a new iterator, but it doesn't consume the entire underlying iterator immediately. You could call collect() to make the iter to eager. Also, that's usually the last step in the iter chain.
+
+# Understand String/str/&str/&mut str
+
+- [The difference](https://docs.google.com/document/d/1Ra30kWTH-sl8nTEsa-0dC4ggd8AHzhDnT-0ungQrqxE/edit)
