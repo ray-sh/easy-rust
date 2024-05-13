@@ -1,6 +1,40 @@
 #[cfg(test)]
 mod tests {
     use std::collections::LinkedList;
+    // 5  给你一个字符串 s，找到 s 中最长的回文子串。
+
+    // 如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。
+    // 在 s 中寻找以 s[l] 和 s[r] 为中心的最长回文串
+
+    fn palindrome<'a>(s: &'a str, mut l: i32, mut r: i32) -> &'a str {
+        while r < s.len() as i32 && l >= 0 && s.chars().nth(l as usize) == s.chars().nth(r as usize)
+        {
+            l -= 1;
+            r += 1;
+        }
+        &s[(l + 1) as usize..r as usize]
+    }
+    fn longest_palindrome(s: &str) -> &str {
+        let mut i: i32 = 0;
+        let mut result = "";
+        while i < s.len() as i32 {
+            let s1 = palindrome(s, i, i);
+            let s2 = palindrome(s, i, i + 1);
+            if s1.len() > result.len() {
+                result = s1;
+            }
+            if s2.len() > result.len() {
+                result = s2;
+            }
+            i += 1;
+        }
+        result
+    }
+    #[test]
+    fn test_5() {
+        assert_eq!(longest_palindrome("babcbab"), "babcbab");
+    }
+
     // 344 题「反转字符串」就是类似的需求，让你反转一个 char[] 类型的字符数组
     fn reverse_str(s: &str) -> String {
         let mut chars: Vec<char> = s.chars().collect();
@@ -17,7 +51,7 @@ mod tests {
     }
     #[test]
     fn test_344() {
-        assert_eq!(reverse_str("abc"), "cab");
+        assert_eq!(reverse_str("abc"), "cba");
     }
     //167 给你一个下标从 1 开始的整数数组 numbers ，该数组已按 非递减顺序排列  ，请你从数组中找出满足相加之和等于目标数 target 的两个数。如果设这两个数分别是 numbers[index1] 和 numbers[index2] ，则 1 <= index1 < index2 <= numbers.length 。
 

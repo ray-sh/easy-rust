@@ -21,3 +21,9 @@ Pattern Matching: Rust's pattern matching capabilities, including match and if l
 Iterator and Iterator Adaptors: Rust's iterator trait (Iterator) and the associated methods provide powerful tools for working with sequences of data, including slices. Iterators allow for expressive and functional-style programming, making it easy to perform operations such as mapping, filtering, and folding over elements of a slice window.
 
 Safety and Error Handling: Rust's strong emphasis on safety and error handling ensures that slice window code is robust and reliable. Rust's Result and Option types provide a convenient and ergonomic way to handle errors and edge cases, preventing unexpected behavior and runtime errors.
+
+# How iter make code neat/efficiency in rust?
+
+- [iter chain make code easy to read](https://docs.google.com/document/d/15Rd0dcggZcwJlCYsRg0BZhTlD8R5BCefqwn0exw7If4/edit?usp=sharing)
+
+- iter chain is lazy by default, Each adapter in the chain (filter, map in the previous example) creates a new iterator, but it doesn't consume the entire underlying iterator immediately. You could call collect() to make the iter to eager. Also, that's usually the last step in the iter chain.
