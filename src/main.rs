@@ -1,36 +1,47 @@
 // mod cmd;
 mod double_pts;
+mod dp;
 mod slice_window;
+// 力扣第 509 题「斐波那契数」就是这个问题，请读者不要嫌弃这个例子简单，只有简单的例子才能让你把精力充分集中在算法背后的通用思想和技巧上，而不会被那些隐晦的细节问题搞的莫名其妙。想要困难的例子，接下来的动态规划系列里有的是。
+// int fib(int N) {
+//     // 备忘录全初始化为 0
+//     int[] memo = new int[N + 1];
+//     // 进行带备忘录的递归
+//     return dp(memo, N);
+// }
 
-// 5  给你一个字符串 s，找到 s 中最长的回文子串。
+// int fib(int n) {
+//     if (n == 0 || n == 1) {
+//         // base case
+//         return n;
+//     }
+//     // 分别代表 dp[i - 1] 和 dp[i - 2]
+//     int dp_i_1 = 1, dp_i_2 = 0;
+//     for (int i = 2; i <= n; i++) {
+//         // dp[i] = dp[i - 1] + dp[i - 2];
+//         int dp_i = dp_i_1 + dp_i_2;
+//         // 滚动更新
+//         dp_i_2 = dp_i_1;
+//         dp_i_1 = dp_i;
+//     }
+//     return dp_i_1;
+// }
 
-// 如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。
-// 在 s 中寻找以 s[l] 和 s[r] 为中心的最长回文串
-
-fn palindrome<'a>(s: &'a str, mut l: i32, mut r: i32) -> &'a str {
-    while r < s.len() as i32 && l >= 0 && s.chars().nth(l as usize) == s.chars().nth(r as usize) {
-        l -= 1;
-        r += 1;
+fn fib(n: usize) -> u128 {
+    if n == 0 || n == 1 {
+        return n as u128;
     }
-    &s[(l + 1) as usize..r as usize]
-}
-fn longest_palindrome(s: &str) -> &str {
-    let mut i: i32 = 0;
-    let mut result = "";
-    while i < s.len() as i32 {
-        let s1 = palindrome(s, i, i);
-        let s2 = palindrome(s, i, i + 1);
-        if s1.len() > result.len() {
-            result = s1;
-        }
-        if s2.len() > result.len() {
-            result = s2;
-        }
-        i += 1;
+    let mut dp_i_2 = 1;
+    let mut dp_i_1 = 0;
+    for _ in 2..=n {
+        let dp_i = dp_i_1 + dp_i_2;
+        dp_i_1 = dp_i_2;
+        dp_i_2 = dp_i;
     }
-    result
+    // Return the nth Fibonacci number
+    return dp_i_2;
 }
+
 fn main() {
-    println!("{}", palindrome("babad", 0, 2));
-    println!("{}", longest_palindrome("babcbab"));
+    println!("{}", fib(10));
 }
